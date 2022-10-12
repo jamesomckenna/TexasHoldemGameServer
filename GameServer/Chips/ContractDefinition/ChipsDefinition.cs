@@ -1,0 +1,311 @@
+using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Numerics;
+using Nethereum.Hex.HexTypes;
+using Nethereum.ABI.FunctionEncoding.Attributes;
+using Nethereum.Web3;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Contracts.CQS;
+using Nethereum.Contracts;
+using System.Threading;
+
+namespace TexasHoldem.Contracts.Chips.ContractDefinition
+{
+
+
+    public partial class ChipsDeployment : ChipsDeploymentBase
+    {
+        public ChipsDeployment() : base(BYTECODE) { }
+        public ChipsDeployment(string byteCode) : base(byteCode) { }
+    }
+
+    public class ChipsDeploymentBase : ContractDeploymentMessage
+    {
+        public static string BYTECODE = "60806040523480156200001157600080fd5b5060405180604001604052806005815260200164436869707360d81b8152506040518060400160405280600381526020016204348560ec1b81525081600390805190602001906200006492919062000380565b5080516200007a90600490602084019062000380565b5050506200009233620186a0620000cf60201b60201c565b600580546001600160a01b03191633908117909155620000c99073f66cc99a47a70ca8b6ae2fbf35cb865eb70a41546064620001a7565b6200048a565b6001600160a01b0382166200012b5760405162461bcd60e51b815260206004820152601f60248201527f45524332303a206d696e7420746f20746865207a65726f20616464726573730060448201526064015b60405180910390fd5b80600260008282546200013f919062000426565b90915550506001600160a01b038216600090815260208190526040812080548392906200016e90849062000426565b90915550506040518181526001600160a01b03831690600090600080516020620011708339815191529060200160405180910390a35050565b620001b4838383620001b9565b505050565b6001600160a01b0383166200021f5760405162461bcd60e51b815260206004820152602560248201527f45524332303a207472616e736665722066726f6d20746865207a65726f206164604482015264647265737360d81b606482015260840162000122565b6001600160a01b038216620002835760405162461bcd60e51b815260206004820152602360248201527f45524332303a207472616e7366657220746f20746865207a65726f206164647260448201526265737360e81b606482015260840162000122565b6001600160a01b03831660009081526020819052604090205481811015620002fd5760405162461bcd60e51b815260206004820152602660248201527f45524332303a207472616e7366657220616d6f756e7420657863656564732062604482015265616c616e636560d01b606482015260840162000122565b6001600160a01b038085166000908152602081905260408082208585039055918516815290812080548492906200033690849062000426565b92505081905550826001600160a01b0316846001600160a01b031660008051602062001170833981519152846040516200037291815260200190565b60405180910390a350505050565b8280546200038e906200044d565b90600052602060002090601f016020900481019282620003b25760008555620003fd565b82601f10620003cd57805160ff1916838001178555620003fd565b82800160010185558215620003fd579182015b82811115620003fd578251825591602001919060010190620003e0565b506200040b9291506200040f565b5090565b5b808211156200040b576000815560010162000410565b600082198211156200044857634e487b7160e01b600052601160045260246000fd5b500190565b600181811c908216806200046257607f821691505b602082108114156200048457634e487b7160e01b600052602260045260246000fd5b50919050565b610cd6806200049a6000396000f3fe608060405234801561001057600080fd5b506004361061010b5760003560e01c80638f4957cc116100a2578063b3983f5f11610071578063b3983f5f14610217578063c3196b1d1461022a578063d96c315b1461023d578063dd62ed3e14610250578063f851a4401461028957600080fd5b80638f4957cc146101d657806395d89b41146101e9578063a457c2d7146101f1578063a9059cbb1461020457600080fd5b8063313ce567116100de578063313ce56714610176578063395093511461018557806370a08231146101985780638579fc36146101c157600080fd5b806306fdde0314610110578063095ea7b31461012e57806318160ddd1461015157806323b872dd14610163575b600080fd5b6101186102b4565b6040516101259190610bcb565b60405180910390f35b61014161013c366004610b88565b610346565b6040519015158152602001610125565b6002545b604051908152602001610125565b610141610171366004610b4c565b61035c565b60405160008152602001610125565b610141610193366004610b88565b61040b565b6101556101a6366004610afe565b6001600160a01b031660009081526020819052604090205490565b6101d46101cf366004610b88565b610447565b005b6101556101e4366004610afe565b6104bd565b6101186104e0565b6101416101ff366004610b88565b6104ef565b610141610212366004610b88565b610588565b6101d4610225366004610b4c565b610595565b6101d4610238366004610bb2565b6105a5565b6101d461024b366004610b4c565b6105b2565b61015561025e366004610b19565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b60055461029c906001600160a01b031681565b6040516001600160a01b039091168152602001610125565b6060600380546102c390610c4f565b80601f01602080910402602001604051908101604052809291908181526020018280546102ef90610c4f565b801561033c5780601f106103115761010080835404028352916020019161033c565b820191906000526020600020905b81548152906001019060200180831161031f57829003601f168201915b5050505050905090565b60006103533384846105c3565b50600192915050565b60006103698484846106e7565b6001600160a01b0384166000908152600160209081526040808320338452909152902054828110156103f35760405162461bcd60e51b815260206004820152602860248201527f45524332303a207472616e7366657220616d6f756e74206578636565647320616044820152676c6c6f77616e636560c01b60648201526084015b60405180910390fd5b61040085338584036105c3565b506001949350505050565b3360008181526001602090815260408083206001600160a01b03871684529091528120549091610353918590610442908690610c20565b6105c3565b6005546001600160a01b031633146104af5760405162461bcd60e51b815260206004820152602560248201527f536f7272792c206f6e6c7920616e2061646d696e2063616e206d696e7420746f6044820152646b656e732160d81b60648201526084016103ea565b6104b982826108b5565b5050565b6001600160a01b03811660009081526020819052604081205481905b9392505050565b6060600480546102c390610c4f565b3360009081526001602090815260408083206001600160a01b0386168452909152812054828110156105715760405162461bcd60e51b815260206004820152602560248201527f45524332303a2064656372656173656420616c6c6f77616e63652062656c6f77604482015264207a65726f60d81b60648201526084016103ea565b61057e33858584036105c3565b5060019392505050565b60006103533384846106e7565b6105a08383836106e7565b505050565b6105af3382610994565b50565b6105bd83838361035c565b50505050565b6001600160a01b0383166106255760405162461bcd60e51b8152602060048201526024808201527f45524332303a20617070726f76652066726f6d20746865207a65726f206164646044820152637265737360e01b60648201526084016103ea565b6001600160a01b0382166106865760405162461bcd60e51b815260206004820152602260248201527f45524332303a20617070726f766520746f20746865207a65726f206164647265604482015261737360f01b60648201526084016103ea565b6001600160a01b0383811660008181526001602090815260408083209487168084529482529182902085905590518481527f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925910160405180910390a3505050565b6001600160a01b03831661074b5760405162461bcd60e51b815260206004820152602560248201527f45524332303a207472616e736665722066726f6d20746865207a65726f206164604482015264647265737360d81b60648201526084016103ea565b6001600160a01b0382166107ad5760405162461bcd60e51b815260206004820152602360248201527f45524332303a207472616e7366657220746f20746865207a65726f206164647260448201526265737360e81b60648201526084016103ea565b6001600160a01b038316600090815260208190526040902054818110156108255760405162461bcd60e51b815260206004820152602660248201527f45524332303a207472616e7366657220616d6f756e7420657863656564732062604482015265616c616e636560d01b60648201526084016103ea565b6001600160a01b0380851660009081526020819052604080822085850390559185168152908120805484929061085c908490610c20565b92505081905550826001600160a01b0316846001600160a01b03167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef846040516108a891815260200190565b60405180910390a36105bd565b6001600160a01b03821661090b5760405162461bcd60e51b815260206004820152601f60248201527f45524332303a206d696e7420746f20746865207a65726f20616464726573730060448201526064016103ea565b806002600082825461091d9190610c20565b90915550506001600160a01b0382166000908152602081905260408120805483929061094a908490610c20565b90915550506040518181526001600160a01b038316906000907fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9060200160405180910390a35050565b6001600160a01b0382166109f45760405162461bcd60e51b815260206004820152602160248201527f45524332303a206275726e2066726f6d20746865207a65726f206164647265736044820152607360f81b60648201526084016103ea565b6001600160a01b03821660009081526020819052604090205481811015610a685760405162461bcd60e51b815260206004820152602260248201527f45524332303a206275726e20616d6f756e7420657863656564732062616c616e604482015261636560f01b60648201526084016103ea565b6001600160a01b0383166000908152602081905260408120838303905560028054849290610a97908490610c38565b90915550506040518281526000906001600160a01b038516907fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9060200160405180910390a3505050565b80356001600160a01b0381168114610af957600080fd5b919050565b600060208284031215610b1057600080fd5b6104d982610ae2565b60008060408385031215610b2c57600080fd5b610b3583610ae2565b9150610b4360208401610ae2565b90509250929050565b600080600060608486031215610b6157600080fd5b610b6a84610ae2565b9250610b7860208501610ae2565b9150604084013590509250925092565b60008060408385031215610b9b57600080fd5b610ba483610ae2565b946020939093013593505050565b600060208284031215610bc457600080fd5b5035919050565b600060208083528351808285015260005b81811015610bf857858101830151858201604001528201610bdc565b81811115610c0a576000604083870101525b50601f01601f1916929092016040019392505050565b60008219821115610c3357610c33610c8a565b500190565b600082821015610c4a57610c4a610c8a565b500390565b600181811c90821680610c6357607f821691505b60208210811415610c8457634e487b7160e01b600052602260045260246000fd5b50919050565b634e487b7160e01b600052601160045260246000fdfea2646970667358221220029fb595de2bb99048c1536c0cd16b83e27f721e285313b2540dde3a45263d6464736f6c63430008070033ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
+        public ChipsDeploymentBase() : base(BYTECODE) { }
+        public ChipsDeploymentBase(string byteCode) : base(byteCode) { }
+
+    }
+
+    public partial class ChipBalanceOfFunction : ChipBalanceOfFunctionBase { }
+
+    [Function("ChipBalanceOf", "uint256")]
+    public class ChipBalanceOfFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "account", 1)]
+        public virtual string Account { get; set; }
+    }
+
+    public partial class ChipBurnFunction : ChipBurnFunctionBase { }
+
+    [Function("ChipBurn")]
+    public class ChipBurnFunctionBase : FunctionMessage
+    {
+        [Parameter("uint256", "amount", 1)]
+        public virtual BigInteger Amount { get; set; }
+    }
+
+    public partial class ChipMintFunction : ChipMintFunctionBase { }
+
+    [Function("ChipMint")]
+    public class ChipMintFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "to", 1)]
+        public virtual string To { get; set; }
+        [Parameter("uint256", "amount", 2)]
+        public virtual BigInteger Amount { get; set; }
+    }
+
+    public partial class ChipTransferFunction : ChipTransferFunctionBase { }
+
+    [Function("ChipTransfer")]
+    public class ChipTransferFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "from", 1)]
+        public virtual string From { get; set; }
+        [Parameter("address", "to", 2)]
+        public virtual string To { get; set; }
+        [Parameter("uint256", "amount", 3)]
+        public virtual BigInteger Amount { get; set; }
+    }
+
+    public partial class ChipTransferFromFunction : ChipTransferFromFunctionBase { }
+
+    [Function("ChipTransferFrom")]
+    public class ChipTransferFromFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "sender", 1)]
+        public virtual string Sender { get; set; }
+        [Parameter("address", "recipient", 2)]
+        public virtual string Recipient { get; set; }
+        [Parameter("uint256", "amount", 3)]
+        public virtual BigInteger Amount { get; set; }
+    }
+
+    public partial class AdminFunction : AdminFunctionBase { }
+
+    [Function("admin", "address")]
+    public class AdminFunctionBase : FunctionMessage
+    {
+
+    }
+
+    public partial class AllowanceFunction : AllowanceFunctionBase { }
+
+    [Function("allowance", "uint256")]
+    public class AllowanceFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "owner", 1)]
+        public virtual string Owner { get; set; }
+        [Parameter("address", "spender", 2)]
+        public virtual string Spender { get; set; }
+    }
+
+    public partial class ApproveFunction : ApproveFunctionBase { }
+
+    [Function("approve", "bool")]
+    public class ApproveFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "spender", 1)]
+        public virtual string Spender { get; set; }
+        [Parameter("uint256", "amount", 2)]
+        public virtual BigInteger Amount { get; set; }
+    }
+
+    public partial class BalanceOfFunction : BalanceOfFunctionBase { }
+
+    [Function("balanceOf", "uint256")]
+    public class BalanceOfFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "account", 1)]
+        public virtual string Account { get; set; }
+    }
+
+    public partial class DecimalsFunction : DecimalsFunctionBase { }
+
+    [Function("decimals", "uint8")]
+    public class DecimalsFunctionBase : FunctionMessage
+    {
+
+    }
+
+    public partial class DecreaseAllowanceFunction : DecreaseAllowanceFunctionBase { }
+
+    [Function("decreaseAllowance", "bool")]
+    public class DecreaseAllowanceFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "spender", 1)]
+        public virtual string Spender { get; set; }
+        [Parameter("uint256", "subtractedValue", 2)]
+        public virtual BigInteger SubtractedValue { get; set; }
+    }
+
+    public partial class IncreaseAllowanceFunction : IncreaseAllowanceFunctionBase { }
+
+    [Function("increaseAllowance", "bool")]
+    public class IncreaseAllowanceFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "spender", 1)]
+        public virtual string Spender { get; set; }
+        [Parameter("uint256", "addedValue", 2)]
+        public virtual BigInteger AddedValue { get; set; }
+    }
+
+    public partial class NameFunction : NameFunctionBase { }
+
+    [Function("name", "string")]
+    public class NameFunctionBase : FunctionMessage
+    {
+
+    }
+
+    public partial class SymbolFunction : SymbolFunctionBase { }
+
+    [Function("symbol", "string")]
+    public class SymbolFunctionBase : FunctionMessage
+    {
+
+    }
+
+    public partial class TotalSupplyFunction : TotalSupplyFunctionBase { }
+
+    [Function("totalSupply", "uint256")]
+    public class TotalSupplyFunctionBase : FunctionMessage
+    {
+
+    }
+
+    public partial class TransferFunction : TransferFunctionBase { }
+
+    [Function("transfer", "bool")]
+    public class TransferFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "recipient", 1)]
+        public virtual string Recipient { get; set; }
+        [Parameter("uint256", "amount", 2)]
+        public virtual BigInteger Amount { get; set; }
+    }
+
+    public partial class TransferFromFunction : TransferFromFunctionBase { }
+
+    [Function("transferFrom", "bool")]
+    public class TransferFromFunctionBase : FunctionMessage
+    {
+        [Parameter("address", "sender", 1)]
+        public virtual string Sender { get; set; }
+        [Parameter("address", "recipient", 2)]
+        public virtual string Recipient { get; set; }
+        [Parameter("uint256", "amount", 3)]
+        public virtual BigInteger Amount { get; set; }
+    }
+
+    public partial class ApprovalEventDTO : ApprovalEventDTOBase { }
+
+    [Event("Approval")]
+    public class ApprovalEventDTOBase : IEventDTO
+    {
+        [Parameter("address", "owner", 1, true )]
+        public virtual string Owner { get; set; }
+        [Parameter("address", "spender", 2, true )]
+        public virtual string Spender { get; set; }
+        [Parameter("uint256", "value", 3, false )]
+        public virtual BigInteger Value { get; set; }
+    }
+
+    public partial class TransferEventDTO : TransferEventDTOBase { }
+
+    [Event("Transfer")]
+    public class TransferEventDTOBase : IEventDTO
+    {
+        [Parameter("address", "from", 1, true )]
+        public virtual string From { get; set; }
+        [Parameter("address", "to", 2, true )]
+        public virtual string To { get; set; }
+        [Parameter("uint256", "value", 3, false )]
+        public virtual BigInteger Value { get; set; }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public partial class AdminOutputDTO : AdminOutputDTOBase { }
+
+    [FunctionOutput]
+    public class AdminOutputDTOBase : IFunctionOutputDTO 
+    {
+        [Parameter("address", "", 1)]
+        public virtual string ReturnValue1 { get; set; }
+    }
+
+    public partial class AllowanceOutputDTO : AllowanceOutputDTOBase { }
+
+    [FunctionOutput]
+    public class AllowanceOutputDTOBase : IFunctionOutputDTO 
+    {
+        [Parameter("uint256", "", 1)]
+        public virtual BigInteger ReturnValue1 { get; set; }
+    }
+
+
+
+    public partial class BalanceOfOutputDTO : BalanceOfOutputDTOBase { }
+
+    [FunctionOutput]
+    public class BalanceOfOutputDTOBase : IFunctionOutputDTO 
+    {
+        [Parameter("uint256", "", 1)]
+        public virtual BigInteger ReturnValue1 { get; set; }
+    }
+
+    public partial class DecimalsOutputDTO : DecimalsOutputDTOBase { }
+
+    [FunctionOutput]
+    public class DecimalsOutputDTOBase : IFunctionOutputDTO 
+    {
+        [Parameter("uint8", "", 1)]
+        public virtual byte ReturnValue1 { get; set; }
+    }
+
+
+
+
+
+    public partial class NameOutputDTO : NameOutputDTOBase { }
+
+    [FunctionOutput]
+    public class NameOutputDTOBase : IFunctionOutputDTO 
+    {
+        [Parameter("string", "", 1)]
+        public virtual string ReturnValue1 { get; set; }
+    }
+
+    public partial class SymbolOutputDTO : SymbolOutputDTOBase { }
+
+    [FunctionOutput]
+    public class SymbolOutputDTOBase : IFunctionOutputDTO 
+    {
+        [Parameter("string", "", 1)]
+        public virtual string ReturnValue1 { get; set; }
+    }
+
+    public partial class TotalSupplyOutputDTO : TotalSupplyOutputDTOBase { }
+
+    [FunctionOutput]
+    public class TotalSupplyOutputDTOBase : IFunctionOutputDTO 
+    {
+        [Parameter("uint256", "", 1)]
+        public virtual BigInteger ReturnValue1 { get; set; }
+    }
+
+
+
+
+}
