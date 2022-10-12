@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FVDzJByp5jRnKfSzgA927+ZVnn1Zxs8I2vcPMxfHlZEMU4VIi2UcwnZSVSsSgpK0WDBo2luUHgXe2jC8xoYQ3A==",
+  "dgSpecHash": "zXYHKDayWR7d9O4EaixK3FVkcnqC0oOf3WeCB66AAnCHSpuXHS09O3j1W5ZXxwPMj96tRcwptvTPC27pGPqeGg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\james\\source\\repos\\GameServer\\GameServer\\GameServer.csproj",
+  "projectFilePath": "C:\\Users\\james\\git\\TexasHoldemGameServer\\GameServer\\GameServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\james\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\james\\.nuget\\packages\\common.logging.core\\3.4.1\\common.logging.core.3.4.1.nupkg.sha512",

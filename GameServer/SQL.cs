@@ -502,7 +502,7 @@ namespace GameServer
             {
                 // mysql error
                 conn.Close();
-                Console.WriteLine("ERROR - " + ex.Message + ": " + ex.StackTrace);
+                //Console.WriteLine("ERROR - " + ex.Message + ": " + ex.StackTrace);
                 return new SQLResponse(false, "An error occured at the server.", null);
             }
         }

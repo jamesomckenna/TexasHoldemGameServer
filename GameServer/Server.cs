@@ -3,17 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
-using Nethereum.Web3;
-using Nethereum.ABI.FunctionEncoding.Attributes;
-using Nethereum.Contracts.CQS;
-using Nethereum.Util;
-using Nethereum.Web3.Accounts;
-using Nethereum.Hex.HexConvertors.Extensions;
-using Nethereum.Contracts;
-using Nethereum.Contracts.Extensions;
 using System.Numerics;
-using TexasHoldem.Contracts.Chips;
-using TexasHoldem.Contracts.Chips.ContractDefinition;
 using System.Globalization;
 
 namespace GameServer
@@ -41,15 +31,33 @@ namespace GameServer
         {
             Port = _port;
             MaxPlayers = _maxPlayers;
-            MaxLobbies = _maxLobbies;
+            string dbuser = _dbuser;
+            string dbpass = _dbpass;
+            bool dbvalid = false;
+            SQL dbtemp = null;
 
             Console.WriteLine("NOTICE - Starting server...");
             InitializeServerData();
 
-            // connectiong to database
-            Console.WriteLine("NOTICE - Initialising Database...");
-            db = new SQL(_dbserver, _dbuser, _dbpass, _dbname);
-            db.TruncateLobbies();
+
+            // loop to connect to database
+            do {
+                Console.WriteLine("Enter SQL server username:");
+                dbuser = Console.ReadLine();
+                Console.WriteLine("Enter SQL server password:");
+                dbpass = Console.ReadLine();
+
+                // connectiong to database
+                Console.WriteLine("NOTICE - Initialising Database...");
+                dbtemp = new SQL(_dbserver, dbuser, dbpass, _dbname);
+                SQLResponse response = dbtemp.TruncateLobbies();
+                if (response.success) {
+                    dbvalid = true;
+                    db = dbtemp;
+                } else {
+                    Console.WriteLine("ERROR - Invalid database credentials");
+                }
+            } while (!dbvalid);
 
             // start TCP socket connection
             tcpListener = new TcpListener(IPAddress.Any, Port);
