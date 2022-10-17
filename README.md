@@ -1,5 +1,5 @@
 # TexasHoldemGameServer
-As a capstone project for our university degree, I helped develop a Texas Holdem poker smartphone game to help reduce the amount of money gamblers spend on poker games, by providing a money free alternative. 
+As a capstone project for our university degree in 2021, I helped develop a Texas Holdem poker smartphone game to help reduce the amount of money gamblers spend on poker games, by providing a money free alternative. 
 
 This is the game server I developed to connect the smartphones and host LAN games for the smartphones across several lobbies. 
 The game featured the ability to create, customize and join lobbies, send and receive friend requests, send messages to other players and log game histories to be viewed by the player.
